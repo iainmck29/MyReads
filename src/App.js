@@ -8,7 +8,7 @@ import Main from './Main'
 
 class BooksApp extends React.Component {
   state = {
-    books: [{ stored: '' }]
+    books: []
   }
 
 
@@ -25,7 +25,7 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf)
       .then(() => {
         this.setState((prevState) => ({
-          storedBooks: prevState.storedBooks.concat([newBook])
+          books: prevState.books.concat(newBook)
         }))
       }
       )
@@ -37,7 +37,7 @@ class BooksApp extends React.Component {
     return (
       <div>
         <Route exact path='/' render={() => (
-          <Main books={this.state.storedBooks} handleSelection={this.updateBooks} />
+          <Main books={this.state.books} handleSelection={this.updateBooks} />
         )} />
 
         <Route path='/search' render={() => (
