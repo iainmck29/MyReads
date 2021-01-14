@@ -8,10 +8,16 @@ class Selector extends React.Component {
         }
     }
 
+    newSelection = (event) => {
+        const selection = event.target.value
+        const book = this.props.book
+        this.props.handleSelection(book, selection)
+    }
+
     render() {
         return (
             <div className="book-shelf-changer">
-                <select>
+                <select onChange={this.newSelection}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>

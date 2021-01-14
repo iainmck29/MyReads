@@ -8,33 +8,40 @@ import Main from './Main'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
+    books: [{ stored: '' }]
   }
 
 
   componentDidMount() {
     BooksAPI.getAll()
-      .then((books) =>
+      .then((booksAdded) =>
         this.setState(() => ({
-          books
+          books: booksAdded
         })))
   }
+
+  updateBooks = (book, shelf) => {
+    const newBook = { book, 'stored': shelf }
+    BooksAPI.update(book, shelf)
+      .then(() => {
+        this.setState((prevState) => ({
+          storedBooks: prevState.storedBooks.concat([newBook])
+        }))
+      }
+      )
+  }
+
+
 
   render() {
     return (
       <div>
         <Route exact path='/' render={() => (
-          <Main />
+          <Main books={this.state.storedBooks} handleSelection={this.updateBooks} />
         )} />
 
         <Route path='/search' render={() => (
-          <Search books={this.state.books} />
+          <Search books={this.state.books} handleSelection={this.updateBooks} />
         )} />
       </div>
     )

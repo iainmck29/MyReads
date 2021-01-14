@@ -12,6 +12,8 @@ class Main extends React.Component {
     }
 
     render() {
+
+        { console.log(this.props.books) }
         return (
 
             <div className="app">
@@ -20,9 +22,9 @@ class Main extends React.Component {
                         <h1>MyReads</h1>
                     </div>
                     <div className="list-books-content">
-                        <Shelf shelfName="Currently Reading" bookUrl={this.getBooks} />
-                        <Shelf shelfName="Want to read" />
-                        <Shelf shelfName="Read" />
+                        <Shelf shelfName="Currently Reading" books={this.props.books} />
+                        <Shelf shelfName="Want to read" books={this.props.books} />
+                        <Shelf shelfName="Read" books={this.props.books} />
                     </div>
                     <div className="open-search">
                         <Link to='/search'>
