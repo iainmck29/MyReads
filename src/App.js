@@ -21,14 +21,12 @@ class BooksApp extends React.Component {
   }
 
   updateBooks = (book, shelf) => {
-    const newBook = { book, 'stored': shelf }
     BooksAPI.update(book, shelf)
       .then(() => {
         this.setState((prevState) => ({
-          books: prevState.books.concat(newBook)
+
         }))
-      }
-      )
+      })
   }
 
 

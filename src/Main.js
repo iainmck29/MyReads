@@ -11,9 +11,24 @@ class Main extends React.Component {
         }
     }
 
+    handleSelection = (book, selection) => {
+        this.props.handleSelection(book, selection)
+    }
+
     render() {
 
-        { console.log(this.props.books) }
+        const current = this.props.books.filter((book) => (
+            book.shelf === 'currentlyReading'
+        )
+        )
+
+        const want = this.props.books.filter((book) => (
+            book.shelf === 'wantToRead'
+        ))
+
+        const read = this.props.books.filter((book) => (
+            book.shelf === 'read'
+        ))
         return (
 
             <div className="app">
@@ -22,9 +37,9 @@ class Main extends React.Component {
                         <h1>MyReads</h1>
                     </div>
                     <div className="list-books-content">
-                        <Shelf shelfName="Currently Reading" books={this.props.books} />
-                        <Shelf shelfName="Want to read" books={this.props.books} />
-                        <Shelf shelfName="Read" books={this.props.books} />
+                        <Shelf shelfName="Currently Reading" books={current} handleSelection={this.handleSelection} />
+                        <Shelf shelfName="Want to read" books={want} handleSelection={this.handleSelection} />
+                        <Shelf shelfName="Read" books={read} handleSelection={this.handleSelection} />
                     </div>
                     <div className="open-search">
                         <Link to='/search'>
