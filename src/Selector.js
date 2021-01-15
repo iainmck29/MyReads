@@ -10,15 +10,20 @@ class Selector extends React.Component {
 
     newSelection = (event) => {
         const selection = event.target.value
+        if (this.props.book.shelf) {
+            const book = this.props.book
+            return this.props.handleSelection(book, selection)
+        }
         const book = this.props.book
-        this.props.handleSelection(book, selection)
+        book['shelf'] = selection
+        return this.props.handleSelection(book, selection)
     }
 
     render() {
         return (
             <div className="book-shelf-changer">
-                <select onChange={this.newSelection}>
-                    <option value="move" disabled>Move to...</option>
+                <select onChange={this.newSelection} defaultValue={this.props.book.shelf ? this.props.book.shelf : 'none'}>
+                    <option value="move" disabled >Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
                     <option value="read">Read</option>

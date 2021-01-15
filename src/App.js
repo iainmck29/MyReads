@@ -22,15 +22,15 @@ class BooksApp extends React.Component {
   }
 
   updateBooks = (book, shelf) => {
-    console.log(book)
     BooksAPI.update(book, shelf)
       .then(() => {
         this.setState((prevState) => ({
-          book: {
-            ...prevState.book,
-            shelf: shelf
-          }
-        }))
+          books: prevState.books.map((shelfBook) => {
+            if (shelfBook.id === book.id) {
+              return { ...shelfBook, shelf };
+            } else return shelfBook;
+          }),
+        }));
       })
     console.log(book)
   }
