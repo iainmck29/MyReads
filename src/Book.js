@@ -13,6 +13,10 @@ class Book extends React.Component {
         this.props.handleSelection(book, selection)
     }
 
+    append = (book, selection) => {
+        this.props.append(book, selection)
+    }
+
 
     render() {
         return (
@@ -24,7 +28,7 @@ class Book extends React.Component {
                         backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`,
 
                     }}></div>
-                    <Selector handleSelection={this.handleSelection} book={this.props.book} />
+                    <Selector handleSelection={this.handleSelection} append={this.append} book={this.props.book} />
                 </div>
                 <div className="book-title">{this.props.book.title ? this.props.book.title : 'no title provided'}</div>
                 <div className="book-authors">{this.props.book.authors ? this.props.book.authors : 'no authors provided'}</div>

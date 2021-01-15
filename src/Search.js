@@ -14,21 +14,26 @@ class Search extends React.Component {
 
     updateQuery = (query) => {
         this.setState(() => ({
-            query: query
+            query
         }))
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
         const query = this.state.query;
-        if (query !== '') {
+        if (query === '') {
+            this.setState(() => ({
+                returnedBooks: []
+            }))
+        }
+        else if (query !== '') {
             BooksAPI.search(query)
                 .then((returnedBooks) =>
                     this.setState(() => ({
-                        returnedBooks: returnedBooks
+                        returnedBooks
                     })
                     ))
         }
+
 
     }
 
@@ -36,9 +41,14 @@ class Search extends React.Component {
         this.props.handleSelection(book, selection)
     }
 
+    append = (book, selection) => {
+        this.props.append(book, selection)
+    }
+
 
     render() {
         const { query } = this.state
+        console.log(this.state.query)
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -46,7 +56,7 @@ class Search extends React.Component {
                         <button className="close-search"></button>
                     </Link>
                     <div className="search-books-input-wrapper">
-                        <form onSubmit={this.handleSubmit}>
+                        <form onChange={this.handleSubmit}>
                             <input type="text"
                                 value={query}
                                 onChange={(event) => this.updateQuery(event.target.value)}
@@ -55,7 +65,7 @@ class Search extends React.Component {
                     </div>
 
                 </div>
-                <SearchGrid books={this.state.returnedBooks} handleSelection={this.handleSelection} />
+                <SearchGrid books={this.state.returnedBooks} append={this.append} handleSelection={this.handleSelection} />
 
             </div>
         )

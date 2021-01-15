@@ -10,13 +10,11 @@ class Selector extends React.Component {
 
     newSelection = (event) => {
         const selection = event.target.value
+        const book = this.props.book
         if (this.props.book.shelf) {
-            const book = this.props.book
             return this.props.handleSelection(book, selection)
         }
-        const book = this.props.book
-        book['shelf'] = selection
-        return this.props.handleSelection(book, selection)
+        return this.props.append(book, selection)
     }
 
     render() {

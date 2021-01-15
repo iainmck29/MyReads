@@ -2,6 +2,7 @@ import React from 'react'
 import Book from './Book'
 
 class SearchGrid extends React.Component {
+
     constructor(props) {
         super(props)
         this.state = {
@@ -13,6 +14,10 @@ class SearchGrid extends React.Component {
         this.props.handleSelection(book, selection)
     }
 
+    append = (book, selection) => {
+        this.props.append(book, selection)
+    }
+
     render() {
 
         return (
@@ -20,10 +25,9 @@ class SearchGrid extends React.Component {
                 <ol className="books-grid">
                     {!this.props.books.error && this.props.books.map((book) => (
                         <li key={book.id}>
-                            <Book book={book} handleSelection={this.handleSelection} />
+                            <Book book={book} append={this.append} handleSelection={this.handleSelection} />
                         </li>
                     ))}
-
                 </ol>
             </div>
         )
