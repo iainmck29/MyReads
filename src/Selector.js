@@ -14,7 +14,11 @@ class Selector extends React.Component {
     render() {
         return (
             <div className="book-shelf-changer">
-                <select onChange={this.newSelection} defaultValue={this.props.book.shelf}>
+                <select onChange={this.newSelection}
+                    defaultValue={
+                        this.props.book.shelf ?
+                            this.props.book.shelf :
+                            'none'}>
                     <option value="move" disabled >Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
