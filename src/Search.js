@@ -4,38 +4,26 @@ import { Link } from 'react-router-dom'
 import SearchGrid from './SearchGrid'
 
 class Search extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            query: '',
-            returnedBooks: []
-        }
+    state = {
+        query: '',
+        returnedBooks: []
     }
 
-    updateQuery = (query) => {
+    updateQuery = (e) => {
+        const query = e.target.value
         this.setState(() => ({
             query
         }))
-    }
-
-    handleSubmit = (e) => {
-        const query = this.state.query;
-        if (query === '') {
-            this.setState(() => ({
-                returnedBooks: []
-            }))
-        }
-        else if (query !== '') {
-            BooksAPI.search(query)
-                .then((returnedBooks) =>
-                    this.setState(() => ({
-                        returnedBooks
-                    })
-                    ))
-        }
-
+        BooksAPI.search(query)
+            .then((returnedBooks) =>
+                this.setState(() => ({
+                    returnedBooks
+                })
+                ))
 
     }
+
+
 
     handleSelection = (book, selection) => {
         this.props.handleSelection(book, selection)
@@ -48,7 +36,8 @@ class Search extends React.Component {
 
     render() {
         const { query } = this.state
-        console.log(this.state.query)
+
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -56,16 +45,14 @@ class Search extends React.Component {
                         <button className="close-search"></button>
                     </Link>
                     <div className="search-books-input-wrapper">
-                        <form onChange={this.handleSubmit}>
-                            <input type="text"
-                                value={query}
-                                onChange={(event) => this.updateQuery(event.target.value)}
-                                placeholder="Search by title or author" />
-                        </form>
+                        <input type="text"
+                            value={query}
+                            onChange={this.updateQuery}
+                            placeholder="Search by title or author" />
                     </div>
 
                 </div>
-                <SearchGrid books={this.state.returnedBooks} append={this.append} handleSelection={this.handleSelection} />
+                <SearchGrid books={this.state.returnedBooks} shelvedBooks={this.props.books} append={this.append} handleSelection={this.handleSelection} />
 
             </div>
         )

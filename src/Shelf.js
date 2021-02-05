@@ -2,12 +2,6 @@ import React from 'react'
 import Book from './Book'
 
 class Shelf extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-    }
 
     handleSelection = (book, selection) => {
         this.props.handleSelection(book, selection)

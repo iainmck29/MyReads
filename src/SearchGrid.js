@@ -3,13 +3,6 @@ import Book from './Book'
 
 class SearchGrid extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-    }
-
     handleSelection = (book, selection) => {
         this.props.handleSelection(book, selection)
     }
@@ -18,12 +11,13 @@ class SearchGrid extends React.Component {
         this.props.append(book, selection)
     }
 
+
     render() {
 
         return (
             <div className="search-books-results">
                 <ol className="books-grid">
-                    {!this.props.books.error && this.props.books.map((book) => (
+                    {this.props.books && !this.props.books.error && this.props.books.map((book) => (
                         <li key={book.id}>
                             <Book book={book} append={this.append} handleSelection={this.handleSelection} />
                         </li>

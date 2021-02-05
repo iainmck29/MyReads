@@ -2,12 +2,6 @@ import React from 'react'
 import Selector from './Selector'
 
 class Book extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-    }
 
     handleSelection = (book, selection) => {
         this.props.handleSelection(book, selection)

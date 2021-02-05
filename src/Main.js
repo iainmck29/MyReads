@@ -4,18 +4,16 @@ import Shelf from './Shelf'
 
 
 class Main extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-    }
 
     handleSelection = (book, selection) => {
         this.props.handleSelection(book, selection)
     }
 
     render() {
+        const { books } = this.props
+
+        books.map((book) => (
+            console.log(book.shelf)))
 
         const current = this.props.books.filter((book) => (
             book.shelf === 'currentlyReading'
@@ -29,6 +27,7 @@ class Main extends React.Component {
         const read = this.props.books.filter((book) => (
             book.shelf === 'read'
         ))
+
         return (
 
             <div className="app">
