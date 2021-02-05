@@ -20,20 +20,10 @@ class Search extends React.Component {
                     returnedBooks
                 })
                 ))
-        for (let book in this.props.books) {
-
-            if (book.shelf) {
-                this.setState((prevState) => ({
-                    ...prevState,
-                    returnedBooks: prevState.returnedBooks
-                        .filter((shelfBook) => shelfBook.id !== book.id)
-                        .concat({ ...book })
-                }))
-            }
-        }
-
-
     }
+
+
+
 
 
 
@@ -64,7 +54,7 @@ class Search extends React.Component {
                     </div>
 
                 </div>
-                <SearchGrid books={this.state.returnedBooks} append={this.append} handleSelection={this.handleSelection} />
+                <SearchGrid books={this.state.returnedBooks} shelfBooks={this.props.books} append={this.append} handleSelection={this.handleSelection} />
 
             </div>
         )
